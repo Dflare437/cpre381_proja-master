@@ -1,0 +1,76 @@
+-- ALU_W_Barrel.vhd
+-------------------------------------------------------------------------
+
+library IEEE;
+use IEEE.std_logic_1164.all;
+
+entity ALU_W_Barrel is 
+  generic(N : integer := 32);
+  port(i_A  : in std_logic_vector(N-1 downto 0);
+       i_B  : in std_logic_vector(N-1 downto 0);
+       s_OPMUX : in std_logic_vector(3 downto 0);
+       Logical_Arithmatic : in std_logic;
+       Left_Right, alu_shifter : in std_logic;
+       i_shamt : in std_logic_vector(4 downto 0);
+       o_F : out std_logic_vector(N-1 downto 0);
+       o_ALUOverflow: out std_logic;
+       o_ALUCout: out std_logic;
+       o_ALUZero : out std_logic);
+end ALU_W_Barrel;
+
+architecture structure of ALU_W_Barrel is
+
+component NBit_ALU
+	port(i_A : in std_logic_vector(N-1 downto 0);
+	     i_B: in std_logic_vector(N-1 downto 0);
+	     s_OPMUX : in std_logic_vector(3 downto 0);
+	     ALU_Output: out std_logic_vector(N-1 downto 0);
+	     o_ALUOverflow: out std_logic;
+	     o_ALUCout: out std_logic;
+	     o_ALUZero : out std_logic);
+end component;
+
+component Barrel_Shifter
+  port(i_A  : in std_logic_vector(N-1 downto 0);
+       Logical_Arithmatic : in std_logic;
+       Left_Right : in std_logic;
+       i_shamt : in std_logic_vector(4 downto 0);
+       o_F : out std_logic_vector(N-1 downto 0));
+
+end component;
+
+component N_bit_2_1_MUX
+  port(i_A  : in std_logic_vector(N-1 downto 0);
+       i_B  : in std_logic_vector(N-1 downto 0);
+       i_Sel : in std_logic;
+       o_F  : out std_logic_vector(N-1 downto 0));
+
+end component;
+
+signal s_ALUOut, s_ShifterOut : std_logic_vector(N-1 downto 0);
+
+begin
+
+NBit_ALU1: NBit_ALU
+	port map(i_A => i_A,
+	     i_B => i_B,
+	     s_OPMUX => s_OPMUX,
+	     ALU_Output => s_ALUOut,
+	     o_ALUOverflow => o_ALUOverflow,
+	     o_ALUCout => o_ALUCout,
+	     o_ALUZero => o_ALUZero);
+
+Barrel_Shifter1: Barrel_Shifter
+  port map(i_A  => i_B,
+       Logical_Arithmatic => Logical_Arithmatic,
+       Left_Right => Left_Right,
+       i_shamt => i_shamt,
+       o_F => s_ShifterOut);
+
+N_bit_2_1_MUX1: N_bit_2_1_MUX
+  port map(i_A  => s_ALUOut,
+       i_B  => s_ShifterOut,
+       i_Sel => alu_shifter,
+       o_F  => o_F);
+
+end structure;

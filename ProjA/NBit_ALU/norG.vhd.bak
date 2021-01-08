@@ -1,0 +1,19 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity norG is
+	port(i_A : in std_logic;
+			i_B: in std_logic;
+			o_S: out std_logic
+			);
+end NBit_ALU;
+
+architecture dataflow of norG is
+
+
+begin
+
+o_S<=i_A nor i_B;
+
+end dataflow;

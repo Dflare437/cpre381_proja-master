@@ -1,0 +1,783 @@
+-- tb_MIPS_w_LS.vhd
+-------------------------------------------------------------------------
+
+library IEEE;
+use IEEE.std_logic_1164.all;
+
+entity tb_MIPS_w_LS is
+  generic(gCLK_HPER   : time := 50 ns);
+end tb_MIPS_w_LS;
+
+architecture behavior of tb_MIPS_w_LS is
+
+constant cCLK_PER  : time := gCLK_HPER * 2;
+
+component MIPS_w_LS
+  generic(N : integer := 32);
+  port(CLK  : in std_logic;
+       Reset, RegWrite  : in std_logic;
+       ALUSrc, Logical_Arithmatic  : in std_logic;
+       s_OPMUX : in std_logic_vector(3 downto 0);
+       Left_Right, alu_shifter : in std_logic;
+       i_shamt : in std_logic_vector(4 downto 0);
+       Zero_Sign, dmem_we : in std_logic;
+       MemToReg, RegDst : in std_logic;
+       immediate : in std_logic_vector(15 downto 0);
+       rd,rs,rt : in std_logic_vector(4 downto 0);
+       o_ALUOverflow: out std_logic;
+       o_ALUCout: out std_logic;
+       o_ALUZero : out std_logic);
+end component;
+
+signal s_CLK, s_Reset, s_RegWrite, s_ALUSrc, s_Logical_Arithmatic, s_Left_Right, s_alu_shifter : std_logic;
+signal s_Zero_Sign, s_dmem_we, s_MemToReg, s_RegDst, s_ALUOverflow, s_ALUCout, s_ALUZero : std_logic;
+signal s_rd, s_rs, s_rt, s_shamt: std_logic_vector(4 downto 0);
+signal s_immediate : std_logic_vector(15 downto 0);
+signal signal_OPMUX : std_logic_vector(3 downto 0);
+
+begin
+
+    DUT: MIPS_w_LS
+    port map(CLK => s_CLK,
+	     Reset => s_Reset,
+	     RegWrite => s_RegWrite,
+	     Logical_Arithmatic => s_Logical_Arithmatic,
+		 s_OPMUX => signal_OPMUX,
+	     ALUSrc => s_ALUSrc,
+		 Left_Right => s_Left_Right,
+		 alu_shifter => s_alu_shifter,
+		 i_shamt => s_shamt,
+	     Zero_Sign => s_Zero_Sign,
+	     dmem_we => s_dmem_we,
+	     MemToReg => s_MemToReg,
+	     RegDst => s_RegDst,
+	     immediate => s_immediate,
+	     rd => s_rd,
+	     rs => s_rs,
+	     rt => s_rt,
+	     o_ALUOverflow => s_ALUOverflow,
+		 o_ALUCout => s_ALUCout,
+		 o_ALUZero => s_ALUZero);
+
+P_CLK: process
+  begin
+    s_CLK <= '0';
+    wait for gCLK_HPER;
+    s_CLK <= '1';
+    wait for gCLK_HPER;
+  end process;
+  
+P_TB: process
+  begin
+  
+  --Reset Register File
+	s_Reset <= '1';
+	s_RegWrite <= '0';
+	s_Logical_Arithmatic <= '0';
+	s_ALUSrc <= '0';
+	signal_OPMUX <= "0000";
+	s_Left_Right <='0';
+	s_alu_shifter <= '0';
+	s_shamt <= "00000";
+	s_Zero_Sign <= '1';
+	s_dmem_we <= '0';
+	s_MemToReg <= '0';
+	s_RegDst <= '0';
+	s_immediate <= x"0000";
+	s_rd <= "00000";
+	s_rs <= "00000";
+	s_rt <= "00000";
+	wait for cCLK_PER;
+	
+	--addi $25, $0, 0 #$25 = &A = 0
+	s_Reset <= '0';
+	s_RegWrite <= '1';
+	s_ALUSrc <= '1';
+	signal_OPMUX <= "0101";
+	s_alu_shifter <= '0';
+	s_Zero_Sign <= '1';
+	s_dmem_we <= '0';
+	s_MemToReg <= '0';
+	s_RegDst <= '1';
+	s_immediate <= x"0000";
+	s_rs <= "00000";
+	s_rt <= "11001";
+	wait for cCLK_PER;
+	
+	--addi $26, $0, 256 #$26 = &B = x100
+	s_RegWrite <= '1';
+	s_ALUSrc <= '1';
+	signal_OPMUX <= "0101";
+	s_alu_shifter <= '0';
+	s_Zero_Sign <= '1';
+	s_dmem_we <= '0';
+	s_MemToReg <= '0';
+	s_RegDst <= '1';
+	s_immediate <= x"0100";
+	s_rs <= "00000";
+	s_rt <= "11010";
+	wait for cCLK_PER;
+	
+	--lw $1, 0($25) #$1 = A[0] = 1
+	s_RegWrite <= '1';
+	s_ALUSrc <= '1';
+	signal_OPMUX <= "0101";
+	s_alu_shifter <= '0';
+	s_Zero_Sign <= '1';
+	s_dmem_we <= '0';
+	s_MemToReg <= '1';
+	s_RegDst <= '1';
+	s_immediate <= x"0000";
+	s_rs <= "11001";
+	s_rt <= "00001";
+	wait for cCLK_PER;
+	
+	--lw $2, 4($25) #$2 = A[1] = 2
+	s_RegWrite <= '1';
+	s_ALUSrc <= '1';
+	signal_OPMUX <= "0101";
+	s_alu_shifter <= '0';
+	s_Zero_Sign <= '1';
+	s_dmem_we <= '0';
+	s_MemToReg <= '1';
+	s_RegDst <= '1';
+	s_immediate <= x"0004";
+	s_rs <= "11001";
+	s_rt <= "00010";
+	wait for cCLK_PER;
+	
+	--add $1, $1, $2 #$1 = A[0] + A[1] = 3
+	s_RegWrite <= '1';
+	s_ALUSrc <= '0';
+	signal_OPMUX <= "0101";
+	s_alu_shifter <= '0';
+	s_dmem_we <= '0';
+	s_MemToReg <= '0';
+	s_RegDst <= '0';
+	s_rd <= "00001";
+	s_rs <= "00001";
+	s_rt <= "00010";
+	wait for cCLK_PER;
+	
+	--sw $1, 0($26) #B[0] = $1
+	s_RegWrite <= '0';
+	s_ALUSrc <= '1';
+	signal_OPMUX <= "0101";
+	s_alu_shifter <= '0';
+	s_Zero_Sign <= '1';
+	s_dmem_we <= '1';
+	s_immediate <= x"0000";
+	s_rs <= "11010";
+	s_rt <= "00001";
+	wait for cCLK_PER;
+	
+	--sub $3, $1, $2 #$3 = 3 - 2 = 1
+	s_RegWrite <= '1';
+	s_ALUSrc <= '0';
+	signal_OPMUX <= "0110";
+	s_alu_shifter <= '0';
+	s_dmem_we <= '0';
+	s_MemToReg <= '0';
+	s_RegDst <= '0';
+	s_rd <= "00011";
+	s_rs <= "00001";
+	s_rt <= "00010";
+	wait for cCLK_PER;
+	
+	--and $4, $1, $3 #$4 = 0x00000001 & 0x0000003 = 0x00000001
+	s_RegWrite <= '1';
+	s_ALUSrc <= '0';
+	signal_OPMUX <= "0000";
+	s_alu_shifter <= '0';
+	s_dmem_we <= '0';
+	s_MemToReg <= '0';
+	s_RegDst <= '0';
+	s_rd <= "00100";
+	s_rs <= "00001";
+	s_rt <= "00011";
+	wait for cCLK_PER;
+	
+	--sw $4, 4($26) #B[1] = $4
+	s_RegWrite <= '0';
+	s_ALUSrc <= '1';
+	signal_OPMUX <= "0101";
+	s_alu_shifter <= '0';
+	s_Zero_Sign <= '1';
+	s_dmem_we <= '1';
+	s_immediate <= x"0004";
+	s_rs <= "11010";
+	s_rt <= "00100";
+	wait for cCLK_PER;
+	
+	--sub $4, $4, $2 #$4 = 1 - 2 = -1
+	s_RegWrite <= '1';
+	s_ALUSrc <= '0';
+	signal_OPMUX <= "0110";
+	s_alu_shifter <= '0';
+	s_dmem_we <= '0';
+	s_MemToReg <= '0';
+	s_RegDst <= '0';
+	s_rd <= "00100";
+	s_rs <= "00100";
+	s_rt <= "00010";
+	wait for cCLK_PER;
+	
+	--slt $4, $0, $3 #$4 = -1 < 1 = 1
+	s_RegWrite <= '1';
+	s_ALUSrc <= '0';
+	signal_OPMUX <= "0111";
+	s_alu_shifter <= '0';
+	s_dmem_we <= '0';
+	s_MemToReg <= '0';
+	s_RegDst <= '0';
+	s_rd <= "00100";
+	s_rs <= "00000";
+	s_rt <= "00011";
+	wait for cCLK_PER;
+	
+	--sw $4, 8($26) #B[2] = $4
+	s_RegWrite <= '0';
+	s_ALUSrc <= '1';
+	signal_OPMUX <= "0101";
+	s_alu_shifter <= '0';
+	s_Zero_Sign <= '1';
+	s_dmem_we <= '1';
+	s_immediate <= x"0008";
+	s_rs <= "11010";
+	s_rt <= "00100";
+	wait for cCLK_PER;
+	
+	--ori $4, $0, x1234  #$4 = x1234
+	s_RegWrite <= '1';
+	s_ALUSrc <= '1';
+	signal_OPMUX <= "0001";
+	s_alu_shifter <= '0';
+	s_Zero_Sign <= '0';
+	s_dmem_we <= '0';
+	s_MemToReg <= '0';
+	s_RegDst <= '1';
+	s_immediate <= x"1234";
+	s_rs <= "00000";
+	s_rt <= "00100";
+	wait for cCLK_PER;
+	
+	--sw $4, 12($26) #B[3] = $4
+	s_RegWrite <= '0';
+	s_ALUSrc <= '1';
+	signal_OPMUX <= "0101";
+	s_alu_shifter <= '0';
+	s_Zero_Sign <= '1';
+	s_dmem_we <= '1';
+	s_immediate <= x"000C";
+	s_rs <= "11010";
+	s_rt <= "00100";
+	wait for cCLK_PER;
+	
+	--lw $2, 8($25) #$2 = A[2] = -3
+	s_RegWrite <= '1';
+	s_ALUSrc <= '1';
+	signal_OPMUX <= "0101";
+	s_alu_shifter <= '0';
+	s_Zero_Sign <= '1';
+	s_dmem_we <= '0';
+	s_MemToReg <= '1';
+	s_RegDst <= '1';
+	s_immediate <= x"0008";
+	s_rs <= "11001";
+	s_rt <= "00010";
+	wait for cCLK_PER;
+	
+	--slt $1, $2, $4 #$1 = -3 < x1234 = 1
+	s_RegWrite <= '1';
+	s_ALUSrc <= '0';
+	signal_OPMUX <= "0111";
+	s_alu_shifter <= '0';
+	s_dmem_we <= '0';
+	s_MemToReg <= '0';
+	s_RegDst <= '0';
+	s_rd <= "00001";
+	s_rs <= "00010";
+	s_rt <= "00100";
+	wait for cCLK_PER;
+	
+	--slt $3, $4, $2 #$3 = x1234 < -3 = 0
+	s_RegWrite <= '1';
+	s_ALUSrc <= '0';
+	signal_OPMUX <= "0111";
+	s_alu_shifter <= '0';
+	s_dmem_we <= '0';
+	s_MemToReg <= '0';
+	s_RegDst <= '0';
+	s_rd <= "00011";
+	s_rs <= "00100";
+	s_rt <= "00010";
+	wait for cCLK_PER;
+	
+	--sub $5, $3, $1 #$5 = 0 - 1 = -1
+	s_RegWrite <= '1';
+	s_ALUSrc <= '0';
+	signal_OPMUX <= "0110";
+	s_alu_shifter <= '0';
+	s_dmem_we <= '0';
+	s_MemToReg <= '0';
+	s_RegDst <= '0';
+	s_rd <= "00101";
+	s_rs <= "00011";
+	s_rt <= "00001";
+	wait for cCLK_PER;
+	
+	--andi $4, $5, xFFFF #$4 = x0000FFFF
+	s_RegWrite <= '1';
+	s_ALUSrc <= '1';
+	signal_OPMUX <= "0000";
+	s_alu_shifter <= '0';
+	s_Zero_Sign <= '0';
+	s_dmem_we <= '0';
+	s_MemToReg <= '0';
+	s_RegDst <= '1';
+	s_immediate <= x"FFFF";
+	s_rs <= "00101";
+	s_rt <= "00100";
+	wait for cCLK_PER;
+	
+	--sw $4, 16($26) #B[4] = $4
+	s_RegWrite <= '0';
+	s_ALUSrc <= '1';
+	signal_OPMUX <= "0101";
+	s_alu_shifter <= '0';
+	s_Zero_Sign <= '1';
+	s_dmem_we <= '1';
+	s_immediate <= x"0010";
+	s_rs <= "11010";
+	s_rt <= "00100";
+	wait for cCLK_PER;
+	
+	--sll $5, $4, 16 #$5 = xFFFF0000
+	s_RegWrite <= '1';
+	s_Logical_Arithmatic <= '0';
+	s_ALUSrc <= '0';
+	s_Left_Right <='0';
+	s_alu_shifter <= '1';
+	s_shamt <= "10000";
+	s_dmem_we <= '0';
+	s_MemToReg <= '0';
+	s_RegDst <= '0';
+	s_rd <= "00101";
+	s_rt <= "00100";
+	wait for cCLK_PER;
+	
+	--or $6, $5, $4 #$6 = xFFFFFFFF
+	s_RegWrite <= '1';
+	s_ALUSrc <= '0';
+	signal_OPMUX <= "0001";
+	s_alu_shifter <= '0';
+	s_dmem_we <= '0';
+	s_MemToReg <= '0';
+	s_RegDst <= '0';
+	s_rd <= "00110";
+	s_rs <= "00101";
+	s_rt <= "00100";
+	wait for cCLK_PER;
+	
+	--sw $6, 20($26) #B[5] = $6
+	s_RegWrite <= '0';
+	s_ALUSrc <= '1';
+	signal_OPMUX <= "0101";
+	s_alu_shifter <= '0';
+	s_Zero_Sign <= '1';
+	s_dmem_we <= '1';
+	s_immediate <= x"0014";
+	s_rs <= "11010";
+	s_rt <= "00110";
+	wait for cCLK_PER;
+	
+	--xor $6, $4, $5 #$6 = xFFFFFFFF
+	s_RegWrite <= '1';
+	s_ALUSrc <= '0';
+	signal_OPMUX <= "0100";
+	s_alu_shifter <= '0';
+	s_dmem_we <= '0';
+	s_MemToReg <= '0';
+	s_RegDst <= '0';
+	s_rd <= "00110";
+	s_rs <= "00100";
+	s_rt <= "00101";
+	wait for cCLK_PER;
+	
+	--xor $6, $6, $5 #$5 = x0000FFFF
+	s_RegWrite <= '1';
+	s_ALUSrc <= '0';
+	signal_OPMUX <= "0100";
+	s_alu_shifter <= '0';
+	s_dmem_we <= '0';
+	s_MemToReg <= '0';
+	s_RegDst <= '0';
+	s_rd <= "00110";
+	s_rs <= "00110";
+	s_rt <= "00101";
+	wait for cCLK_PER;
+	
+	--sw $6, 24($26) #B[6] = $6
+	s_RegWrite <= '0';
+	s_ALUSrc <= '1';
+	signal_OPMUX <= "0101";
+	s_alu_shifter <= '0';
+	s_Zero_Sign <= '1';
+	s_dmem_we <= '1';
+	s_immediate <= x"0018";
+	s_rs <= "11010";
+	s_rt <= "00110";
+	wait for cCLK_PER;
+	
+	--nand $6, $4, $5 #$6 = xFFFFFFFF
+	s_RegWrite <= '1';
+	s_ALUSrc <= '0';
+	signal_OPMUX <= "0011";
+	s_alu_shifter <= '0';
+	s_dmem_we <= '0';
+	s_MemToReg <= '0';
+	s_RegDst <= '0';
+	s_rd <= "00110";
+	s_rs <= "00100";
+	s_rt <= "00101";
+	wait for cCLK_PER;
+	
+	--nand $6, $6, $5 #$6 = x0000FFFF
+	s_RegWrite <= '1';
+	s_ALUSrc <= '0';
+	signal_OPMUX <= "0011";
+	s_alu_shifter <= '0';
+	s_dmem_we <= '0';
+	s_MemToReg <= '0';
+	s_RegDst <= '0';
+	s_rd <= "00110";
+	s_rs <= "00110";
+	s_rt <= "00101";
+	wait for cCLK_PER;
+	
+	--sw $6, 28($26) #B[7] = $6
+	s_RegWrite <= '0';
+	s_ALUSrc <= '1';
+	signal_OPMUX <= "0101";
+	s_alu_shifter <= '0';
+	s_Zero_Sign <= '1';
+	s_dmem_we <= '1';
+	s_immediate <= x"001C";
+	s_rs <= "11010";
+	s_rt <= "00110";
+	wait for cCLK_PER;
+	
+	--nor $6, $4, $5 #$6 = x00000000
+	s_RegWrite <= '1';
+	s_ALUSrc <= '0';
+	signal_OPMUX <= "0010";
+	s_alu_shifter <= '0';
+	s_dmem_we <= '0';
+	s_MemToReg <= '0';
+	s_RegDst <= '0';
+	s_rd <= "00110";
+	s_rs <= "00100";
+	s_rt <= "00101";
+	wait for cCLK_PER;
+	
+	--nor $6, $6, $5 #$6 = x0000FFFF
+	s_RegWrite <= '1';
+	s_ALUSrc <= '0';
+	signal_OPMUX <= "0010";
+	s_alu_shifter <= '0';
+	s_dmem_we <= '0';
+	s_MemToReg <= '0';
+	s_RegDst <= '0';
+	s_rd <= "00110";
+	s_rs <= "00110";
+	s_rt <= "00101";
+	wait for cCLK_PER;
+	
+	--sw $6, 32($26) #B[8] = $6
+	s_RegWrite <= '0';
+	s_ALUSrc <= '1';
+	signal_OPMUX <= "0101";
+	s_alu_shifter <= '0';
+	s_Zero_Sign <= '1';
+	s_dmem_we <= '1';
+	s_immediate <= x"0020";
+	s_rs <= "11010";
+	s_rt <= "00110";
+	wait for cCLK_PER;
+	
+	--lw $1, 0($25) #$1 = A[0] = 1
+	s_RegWrite <= '1';
+	s_ALUSrc <= '1';
+	signal_OPMUX <= "0101";
+	s_alu_shifter <= '0';
+	s_Zero_Sign <= '1';
+	s_dmem_we <= '0';
+	s_MemToReg <= '1';
+	s_RegDst <= '1';
+	s_immediate <= x"0000";
+	s_rs <= "11001";
+	s_rt <= "00001";
+	wait for cCLK_PER;
+	
+	--sll $2, $1, 31 #$2 = x80000000
+	s_RegWrite <= '1';
+	s_Logical_Arithmatic <= '0';
+	s_ALUSrc <= '0';
+	s_Left_Right <='0';
+	s_alu_shifter <= '1';
+	s_shamt <= "11111";
+	s_dmem_we <= '0';
+	s_MemToReg <= '0';
+	s_RegDst <= '0';
+	s_rd <= "00010";
+	s_rt <= "00001";
+	wait for cCLK_PER;
+	
+	
+	--sra $3, $2, 3 #$3 = xF0000000
+	s_RegWrite <= '1';
+	s_Logical_Arithmatic <= '1';
+	s_ALUSrc <= '0';
+	s_Left_Right <='1';
+	s_alu_shifter <= '1';
+	s_shamt <= "00011";
+	s_dmem_we <= '0';
+	s_MemToReg <= '0';
+	s_RegDst <= '0';
+	s_rd <= "00011";
+	s_rt <= "00010";
+	wait for cCLK_PER;
+	
+	--sw $3, 36($26) #B[9] = $3
+	s_RegWrite <= '0';
+	s_ALUSrc <= '1';
+	signal_OPMUX <= "101";
+	s_alu_shifter <= '0';
+	s_Zero_Sign <= '1';
+	s_dmem_we <= '1';
+	s_immediate <= x"0024";
+	s_rs <= "11010";
+	s_rt <= "00011";
+	wait for cCLK_PER;
+	
+	--srl $4, $2, 3 #$3 = x10000000
+	s_RegWrite <= '1';
+	s_Logical_Arithmatic <= '0';
+	s_ALUSrc <= '0';
+	s_Left_Right <='1';
+	s_alu_shifter <= '1';
+	s_shamt <= "00011";
+	s_dmem_we <= '0';
+	s_MemToReg <= '0';
+	s_RegDst <= '0';
+	s_rd <= "00100";
+	s_rt <= "00010";
+	wait for cCLK_PER;
+	
+	--sra $4, $4, 28 #$4 = x00000001
+	s_RegWrite <= '1';
+	s_Logical_Arithmatic <= '1';
+	s_ALUSrc <= '0';
+	s_Left_Right <='1';
+	s_alu_shifter <= '1';
+	s_shamt <= "11100";
+	s_dmem_we <= '0';
+	s_MemToReg <= '0';
+	s_RegDst <= '0';
+	s_rd <= "00100";
+	s_rt <= "00100";
+	wait for cCLK_PER;
+	
+	--xor $4, $4, $3 #$4 = xF0000001
+	s_RegWrite <= '1';
+	s_ALUSrc <= '0';
+	signal_OPMUX <= "100";
+	s_alu_shifter <= '0';
+	s_dmem_we <= '0';
+	s_MemToReg <= '0';
+	s_RegDst <= '0';
+	s_rd <= "00100";
+	s_rs <= "00100";
+	s_rt <= "00011";
+	wait for cCLK_PER;
+	
+	--sw $4, 40($26) #B[10] = $4
+	s_RegWrite <= '0';
+	s_ALUSrc <= '1';
+	signal_OPMUX <= "101";
+	s_alu_shifter <= '0';
+	s_Zero_Sign <= '1';
+	s_dmem_we <= '1';
+	s_immediate <= x"0028";
+	s_rs <= "11010";
+	s_rt <= "00100";
+	wait for cCLK_PER;
+	
+	--srl $4, $4, 1 #$4 = x78000000
+	s_RegWrite <= '1';
+	s_Logical_Arithmatic <= '0';
+	s_ALUSrc <= '0';
+	s_Left_Right <='1';
+	s_alu_shifter <= '1';
+	s_shamt <= "00001";
+	s_dmem_we <= '0';
+	s_MemToReg <= '0';
+	s_RegDst <= '0';
+	s_rd <= "00100";
+	s_rt <= "00100";
+	wait for cCLK_PER;
+	
+	--sll $4, $4, 4 #$4 = x80000000
+	s_RegWrite <= '1';
+	s_Logical_Arithmatic <= '0';
+	s_ALUSrc <= '0';
+	s_Left_Right <='0';
+	s_alu_shifter <= '1';
+	s_shamt <= "00100";
+	s_dmem_we <= '0';
+	s_MemToReg <= '0';
+	s_RegDst <= '0';
+	s_rd <= "00100";
+	s_rt <= "00100";
+	wait for cCLK_PER;
+	
+	--sw $4, 44($26) #B[11] = $4
+	s_RegWrite <= '0';
+	s_ALUSrc <= '1';
+	signal_OPMUX <= "101";
+	s_alu_shifter <= '0';
+	s_Zero_Sign <= '1';
+	s_dmem_we <= '1';
+	s_immediate <= x"002C";
+	s_rs <= "11010";
+	s_rt <= "00100";
+	wait for cCLK_PER;
+	
+	--testing edge cases and overflow
+	----------------------------------
+	-- $4 = MIN INT from before
+	
+	-- $1 = MAX INT from below lw
+	
+	-- $2 = 1 from below lw
+	
+	--results go in registers 10-15
+	----------------------------------
+	--lw $1, 40($25) #$1 = A[10]
+	s_RegWrite <= '1';
+	s_ALUSrc <= '1';
+	signal_OPMUX <= "101";
+	s_alu_shifter <= '0';
+	s_Zero_Sign <= '1';
+	s_dmem_we <= '0';
+	s_MemToReg <= '1';
+	s_RegDst <= '1';
+	s_immediate <= x"0028";
+	s_rs <= "11001";
+	s_rt <= "00001";
+	wait for cCLK_PER;
+	
+	--lw $2, 0($25) #$2 = A[0] = 1
+	s_RegWrite <= '1';
+	s_ALUSrc <= '1';
+	signal_OPMUX <= "101";
+	s_alu_shifter <= '0';
+	s_Zero_Sign <= '1';
+	s_dmem_we <= '0';
+	s_MemToReg <= '1';
+	s_RegDst <= '1';
+	s_immediate <= x"0000";
+	s_rs <= "11001";
+	s_rt <= "00010";
+	wait for cCLK_PER;
+	
+	
+	
+	--overflow slt
+	--slt $10, $4, $1
+	s_RegWrite <= '1';
+	s_ALUSrc <= '0';
+	signal_OPMUX <= "111";
+	s_alu_shifter <= '0';
+	s_dmem_we <= '0';
+	s_MemToReg <= '0';
+	s_RegDst <= '0';
+	s_rd <= "01010";
+	s_rs <= "00100";
+	s_rt <= "00001";
+	wait for cCLK_PER;
+	
+	--slt $11, $1, $4
+	s_RegWrite <= '1';
+	s_ALUSrc <= '0';
+	signal_OPMUX <= "111";
+	s_alu_shifter <= '0';
+	s_dmem_we <= '0';
+	s_MemToReg <= '0';
+	s_RegDst <= '0';
+	s_rd <= "01011";
+	s_rs <= "00001";
+	s_rt <= "00100";
+	wait for cCLK_PER;
+	
+	--overflow add
+	--addi $12, $1, 1
+	s_RegWrite <= '1';
+	s_ALUSrc <= '1';
+	signal_OPMUX <= "101";
+	s_alu_shifter <= '0';
+	s_Zero_Sign <= '1';
+	s_dmem_we <= '0';
+	s_MemToReg <= '0';
+	s_RegDst <= '1';
+	s_immediate <= x"0001";
+	s_rs <= "00001";
+	s_rt <= "01100";
+	wait for cCLK_PER;
+	
+	--addi $13, $4, -1
+	s_RegWrite <= '1';
+	s_ALUSrc <= '1';
+	signal_OPMUX <= "101";
+	s_alu_shifter <= '0';
+	s_Zero_Sign <= '1';
+	s_dmem_we <= '0';
+	s_MemToReg <= '0';
+	s_RegDst <= '1';
+	s_immediate <= x"FFFF";
+	s_rs <= "00100";
+	s_rt <= "01101";
+	wait for cCLK_PER;
+	
+	--overflow sub
+	--sub $14, $4, $2
+	s_RegWrite <= '1';
+	s_ALUSrc <= '0';
+	signal_OPMUX <= "110";
+	s_alu_shifter <= '0';
+	s_dmem_we <= '0';
+	s_MemToReg <= '0';
+	s_RegDst <= '0';
+	s_rd <= "01110";
+	s_rs <= "00100";
+	s_rt <= "00010";
+	wait for cCLK_PER;
+	
+	--check 0
+	--add $15, $0, $0
+	s_RegWrite <= '1';
+	s_ALUSrc <= '0';
+	signal_OPMUX <= "101";
+	s_alu_shifter <= '0';
+	s_dmem_we <= '0';
+	s_MemToReg <= '0';
+	s_RegDst <= '0';
+	s_rd <= "01111";
+	s_rs <= "00000";
+	s_rt <= "00000";
+	wait for cCLK_PER;
+
+  wait;
+  end process;
+  
+end behavior;

@@ -1,0 +1,112 @@
+
+Exception caught at 2020-10-21 11:58:49.306412:
+Traceback (most recent call last):
+  File "synthesis.py", line 60, in <module>
+    main()
+  File "synthesis.py", line 40, in main
+    build_success = build.build_all()
+  File "U:\CPRE309\Proj-1\cpre381_proja\ProjB\Part1\cpre381-toolflow-release\scripts\quartus\build.py", line 24, in build_all
+    exit_code = subprocess.call(
+  File "C:\Program Files\Python38\lib\subprocess.py", line 340, in call
+    with Popen(*popenargs, **kwargs) as p:
+  File "C:\Program Files\Python38\lib\subprocess.py", line 854, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "C:\Program Files\Python38\lib\subprocess.py", line 1307, in _execute_child
+    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
+FileNotFoundError: [WinError 2] The system cannot find the file specified
+
+Exception caught at 2020-10-21 11:58:57.799538:
+Traceback (most recent call last):
+  File "synthesis.py", line 60, in <module>
+    main()
+  File "synthesis.py", line 40, in main
+    build_success = build.build_all()
+  File "U:\CPRE309\Proj-1\cpre381_proja\ProjB\Part1\cpre381-toolflow-release\scripts\quartus\build.py", line 24, in build_all
+    exit_code = subprocess.call(
+  File "C:\Program Files\Python38\lib\subprocess.py", line 340, in call
+    with Popen(*popenargs, **kwargs) as p:
+  File "C:\Program Files\Python38\lib\subprocess.py", line 854, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "C:\Program Files\Python38\lib\subprocess.py", line 1307, in _execute_child
+    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
+FileNotFoundError: [WinError 2] The system cannot find the file specified
+
+Exception caught at 2020-10-21 11:59:16.969822:
+Traceback (most recent call last):
+  File "synthesis.py", line 60, in <module>
+    main()
+  File "synthesis.py", line 40, in main
+    build_success = build.build_all()
+  File "U:\CPRE309\Proj-1\cpre381_proja\ProjB\Part1\cpre381-toolflow-release\scripts\quartus\build.py", line 24, in build_all
+    exit_code = subprocess.call(
+  File "C:\Program Files\Python38\lib\subprocess.py", line 340, in call
+    with Popen(*popenargs, **kwargs) as p:
+  File "C:\Program Files\Python38\lib\subprocess.py", line 854, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "C:\Program Files\Python38\lib\subprocess.py", line 1307, in _execute_child
+    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
+FileNotFoundError: [WinError 2] The system cannot find the file specified
+
+Exception caught at 2020-10-21 11:59:39.062122:
+Traceback (most recent call last):
+  File "synthesis.py", line 60, in <module>
+    main()
+  File "synthesis.py", line 40, in main
+    build_success = build.build_all()
+  File "U:\CPRE309\Proj-1\cpre381_proja\ProjB\Part1\cpre381-toolflow-release\scripts\quartus\build.py", line 24, in build_all
+    exit_code = subprocess.call(
+  File "C:\Program Files\Python38\lib\subprocess.py", line 340, in call
+    with Popen(*popenargs, **kwargs) as p:
+  File "C:\Program Files\Python38\lib\subprocess.py", line 854, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "C:\Program Files\Python38\lib\subprocess.py", line 1307, in _execute_child
+    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
+FileNotFoundError: [WinError 2] The system cannot find the file specified
+
+Exception caught at 2020-10-21 12:02:00.944481:
+Traceback (most recent call last):
+  File "synthesis.py", line 60, in <module>
+    main()
+  File "synthesis.py", line 40, in main
+    build_success = build.build_all()
+  File "U:\CPRE309\Proj-1\cpre381_proja\ProjB\Part1\cpre381-toolflow-release\scripts\quartus\build.py", line 24, in build_all
+    exit_code = subprocess.call(
+  File "C:\Program Files\Python38\lib\subprocess.py", line 340, in call
+    with Popen(*popenargs, **kwargs) as p:
+  File "C:\Program Files\Python38\lib\subprocess.py", line 854, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "C:\Program Files\Python38\lib\subprocess.py", line 1307, in _execute_child
+    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
+FileNotFoundError: [WinError 2] The system cannot find the file specified
+
+Exception caught at 2020-10-21 12:02:20.387751:
+Traceback (most recent call last):
+  File "synthesis.py", line 60, in <module>
+    main()
+  File "synthesis.py", line 40, in main
+    build_success = build.build_all()
+  File "U:\CPRE309\Proj-1\cpre381_proja\ProjB\Part1\cpre381-toolflow-release\scripts\quartus\build.py", line 24, in build_all
+    exit_code = subprocess.call(
+  File "C:\Program Files\Python38\lib\subprocess.py", line 340, in call
+    with Popen(*popenargs, **kwargs) as p:
+  File "C:\Program Files\Python38\lib\subprocess.py", line 854, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "C:\Program Files\Python38\lib\subprocess.py", line 1307, in _execute_child
+    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
+FileNotFoundError: [WinError 2] The system cannot find the file specified
+
+Exception caught at 2020-10-21 12:02:23.318783:
+Traceback (most recent call last):
+  File "U:\CPRE309\Proj-1\cpre381_proja\ProjB\Part1\cpre381-toolflow-release\synthesis.py", line 60, in <module>
+    main()
+  File "U:\CPRE309\Proj-1\cpre381_proja\ProjB\Part1\cpre381-toolflow-release\synthesis.py", line 40, in main
+    build_success = build.build_all()
+  File "U:\CPRE309\Proj-1\cpre381_proja\ProjB\Part1\cpre381-toolflow-release\scripts\quartus\build.py", line 24, in build_all
+    exit_code = subprocess.call(
+  File "C:\Program Files\Python38\lib\subprocess.py", line 340, in call
+    with Popen(*popenargs, **kwargs) as p:
+  File "C:\Program Files\Python38\lib\subprocess.py", line 854, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "C:\Program Files\Python38\lib\subprocess.py", line 1307, in _execute_child
+    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
+FileNotFoundError: [WinError 2] The system cannot find the file specified

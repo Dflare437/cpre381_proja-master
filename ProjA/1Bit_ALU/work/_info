@@ -1,0 +1,356 @@
+m255
+K4
+z2
+!s11e vcom 2020.2 2020.04, Apr 19 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dU:/cpre381/Proj-A/cpre381_proja/ProjA/1Bit_ALU
+T_opt
+!s110 1601511470
+VRfigjFYO]3WGMPPT`AWz>3
+04 10 8 work tb_1bitalu behavior 1
+=1-0050569b176d-5f75202d-16c-900
+o-quiet -auto_acc_if_foreign -work work +acc
+tCvgOpt 0
+n@_opt
+OL;O;2020.2;71
+Eandg2
+Z1 w1601494524
+Z2 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z3 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
+!i122 0
+R0
+Z4 8U:/cpre381/Proj-A/cpre381_proja/ProjA/1Bit_ALU/andg2.vhd
+Z5 FU:/cpre381/Proj-A/cpre381_proja/ProjA/1Bit_ALU/andg2.vhd
+l0
+Z6 L23 1
+VQ@<<<@nlJ=eiIl4BJDFzW2
+!s100 YT?bGzEmcFo:DlnoC^B4_0
+Z7 OL;C;2020.2;71
+32
+Z8 !s110 1601511155
+!i10b 1
+Z9 !s108 1601511155.000000
+Z10 !s90 -reportprogress|300|-work|work|U:/cpre381/Proj-A/cpre381_proja/ProjA/1Bit_ALU/andg2.vhd|
+Z11 !s107 U:/cpre381/Proj-A/cpre381_proja/ProjA/1Bit_ALU/andg2.vhd|
+!i113 0
+Z12 o-work work
+Z13 tExplicit 1 CvgOpt 0
+Adataflow
+R2
+R3
+DEx4 work 5 andg2 0 22 Q@<<<@nlJ=eiIl4BJDFzW2
+!i122 0
+l32
+Z14 L31 6
+VJVOzCk?IH:iJ5bCRU`CK13
+!s100 I`@Z@UBObS]<7m8bPgKUS1
+R7
+32
+R8
+!i10b 1
+R9
+R10
+R11
+!i113 0
+R12
+R13
+Einvg
+R1
+R2
+R3
+!i122 1
+R0
+Z15 8U:/cpre381/Proj-A/cpre381_proja/ProjA/1Bit_ALU/invg.vhd
+Z16 FU:/cpre381/Proj-A/cpre381_proja/ProjA/1Bit_ALU/invg.vhd
+l0
+R6
+VQ?6hb9ePk@>kZZ9k]hNSO3
+!s100 _XK?_^5z0Rm1<k12?;5R?2
+R7
+32
+Z17 !s110 1601511157
+!i10b 1
+Z18 !s108 1601511157.000000
+Z19 !s90 -reportprogress|300|-work|work|U:/cpre381/Proj-A/cpre381_proja/ProjA/1Bit_ALU/invg.vhd|
+Z20 !s107 U:/cpre381/Proj-A/cpre381_proja/ProjA/1Bit_ALU/invg.vhd|
+!i113 0
+R12
+R13
+Adataflow
+R2
+R3
+DEx4 work 4 invg 0 22 Q?6hb9ePk@>kZZ9k]hNSO3
+!i122 1
+l31
+L30 6
+Vch>li:oKYZkCO5]GamViK1
+!s100 bk7I76o8e1LURdoZEQb8H0
+R7
+32
+R17
+!i10b 1
+R18
+R19
+R20
+!i113 0
+R12
+R13
+Enbit_mux_dataflow
+Z21 w1601473621
+R2
+R3
+!i122 2
+R0
+Z22 8U:/cpre381/Proj-A/cpre381_proja/ProjA/1Bit_ALU/nbit_mux_dataflow.vhd
+Z23 FU:/cpre381/Proj-A/cpre381_proja/ProjA/1Bit_ALU/nbit_mux_dataflow.vhd
+l0
+L4 1
+V<9Hm5FzBfQ4f9QZ<BDHaT3
+!s100 =ifEIYXjZ^UO1nXIMV_o83
+R7
+32
+Z24 !s110 1601511159
+!i10b 1
+Z25 !s108 1601511159.000000
+Z26 !s90 -reportprogress|300|-work|work|U:/cpre381/Proj-A/cpre381_proja/ProjA/1Bit_ALU/nbit_mux_dataflow.vhd|
+Z27 !s107 U:/cpre381/Proj-A/cpre381_proja/ProjA/1Bit_ALU/nbit_mux_dataflow.vhd|
+!i113 0
+R12
+R13
+Adataflow
+R2
+R3
+DEx4 work 17 nbit_mux_dataflow 0 22 <9Hm5FzBfQ4f9QZ<BDHaT3
+!i122 2
+l16
+L12 16
+VN[5IA=c;E[Hj>AG14Qih>0
+!s100 Y^kMF=GhQN?JW[:?nV`430
+R7
+32
+R24
+!i10b 1
+R25
+R26
+R27
+!i113 0
+R12
+R13
+Eones_bit_alu
+Z28 w1601511423
+Z29 DPx4 ieee 15 std_logic_arith 0 22 [G314=:2zXJ`VORJe1J@Z1
+Z30 DPx4 ieee 18 std_logic_unsigned 0 22 ;eZjO2D4ZDz<]0>8AL<ne1
+R2
+R3
+!i122 10
+R0
+Z31 8U:/cpre381/Proj-A/cpre381_proja/ProjA/1Bit_ALU/Ones_Bit_ALU.vhd
+Z32 FU:/cpre381/Proj-A/cpre381_proja/ProjA/1Bit_ALU/Ones_Bit_ALU.vhd
+l0
+L5 1
+V[@ObYzmFgFBJDBPW1a<Oe0
+!s100 ]LhnL[VIi[Nh8LjWZ1he12
+R7
+32
+Z33 !s110 1601511462
+!i10b 1
+Z34 !s108 1601511462.000000
+Z35 !s90 -reportprogress|300|-work|work|U:/cpre381/Proj-A/cpre381_proja/ProjA/1Bit_ALU/Ones_Bit_ALU.vhd|
+Z36 !s107 U:/cpre381/Proj-A/cpre381_proja/ProjA/1Bit_ALU/Ones_Bit_ALU.vhd|
+!i113 0
+R12
+R13
+Amixed
+R29
+R30
+R2
+R3
+DEx4 work 12 ones_bit_alu 0 22 [@ObYzmFgFBJDBPW1a<Oe0
+!i122 10
+l30
+L17 49
+Vic05Q=4FH89KG6X8]QijO2
+!s100 GL^6Rk@[2BM[SWMnU1RjF3
+R7
+32
+R33
+!i10b 1
+R34
+R35
+R36
+!i113 0
+R12
+R13
+Eorg2
+R1
+R2
+R3
+!i122 4
+R0
+Z37 8U:/cpre381/Proj-A/cpre381_proja/ProjA/1Bit_ALU/org2.vhd
+Z38 FU:/cpre381/Proj-A/cpre381_proja/ProjA/1Bit_ALU/org2.vhd
+l0
+R6
+V[C`FCj=kL0CTBYLlbjJzD3
+!s100 bGQ1F9eW^Q17OoL9h4g7z2
+R7
+32
+Z39 !s110 1601511164
+!i10b 1
+Z40 !s108 1601511164.000000
+Z41 !s90 -reportprogress|300|-work|work|U:/cpre381/Proj-A/cpre381_proja/ProjA/1Bit_ALU/org2.vhd|
+Z42 !s107 U:/cpre381/Proj-A/cpre381_proja/ProjA/1Bit_ALU/org2.vhd|
+!i113 0
+R12
+R13
+Adataflow
+R2
+R3
+DEx4 work 4 org2 0 22 [C`FCj=kL0CTBYLlbjJzD3
+!i122 4
+l32
+R14
+VNHGn>Kh:]BEh4o]ImiG<d3
+!s100 h5_AzR3TdRA0a_K=dQ>mI2
+R7
+32
+R39
+!i10b 1
+R40
+R41
+R42
+!i113 0
+R12
+R13
+Estruct_fulladder
+Z43 w1600955200
+R29
+R30
+R2
+R3
+!i122 5
+R0
+Z44 8U:/cpre381/Proj-A/cpre381_proja/ProjA/1Bit_ALU/struct_FullAdder.vhd
+Z45 FU:/cpre381/Proj-A/cpre381_proja/ProjA/1Bit_ALU/struct_FullAdder.vhd
+l0
+L5 1
+V<UG4iS_ecFD7k5U<NR_C31
+!s100 >;R9?935V?f`?57KHzFTV2
+R7
+32
+Z46 !s110 1601511167
+!i10b 1
+Z47 !s108 1601511167.000000
+Z48 !s90 -reportprogress|300|-work|work|U:/cpre381/Proj-A/cpre381_proja/ProjA/1Bit_ALU/struct_FullAdder.vhd|
+Z49 !s107 U:/cpre381/Proj-A/cpre381_proja/ProjA/1Bit_ALU/struct_FullAdder.vhd|
+!i113 0
+R12
+R13
+Astructure
+R29
+R30
+R2
+R3
+DEx4 work 16 struct_fulladder 0 22 <UG4iS_ecFD7k5U<NR_C31
+!i122 5
+l35
+L13 51
+VmN2PWK[e2jDzKca`Rd>WT0
+!s100 oRKCDKPP1eb5URI?>OZOZ1
+R7
+32
+R46
+!i10b 1
+R47
+R48
+R49
+!i113 0
+R12
+R13
+Etb_1bitalu
+Z50 w1601511238
+R2
+R3
+!i122 11
+R0
+Z51 8U:/cpre381/Proj-A/cpre381_proja/ProjA/1Bit_ALU/tb_1BitALU.vhd
+Z52 FU:/cpre381/Proj-A/cpre381_proja/ProjA/1Bit_ALU/tb_1BitALU.vhd
+l0
+L12 1
+VaFUU2MG02DHjcX5>=hQ]e3
+!s100 66^;eO9fiP7kI9m64nJTF3
+R7
+32
+Z53 !s110 1601511465
+!i10b 1
+Z54 !s108 1601511465.000000
+Z55 !s90 -reportprogress|300|-work|work|U:/cpre381/Proj-A/cpre381_proja/ProjA/1Bit_ALU/tb_1BitALU.vhd|
+Z56 !s107 U:/cpre381/Proj-A/cpre381_proja/ProjA/1Bit_ALU/tb_1BitALU.vhd|
+!i113 0
+R12
+R13
+Abehavior
+R2
+R3
+DEx4 work 10 tb_1bitalu 0 22 aFUU2MG02DHjcX5>=hQ]e3
+!i122 11
+l32
+L16 263
+V^g9AVJ;oRKbZG;<:[>BGn2
+!s100 5?z9omZdRYK>JjTzLbM7P2
+R7
+32
+R53
+!i10b 1
+R54
+R55
+R56
+!i113 0
+R12
+R13
+Exorg2
+Z57 w1601494528
+R2
+R3
+!i122 7
+R0
+Z58 8U:/cpre381/Proj-A/cpre381_proja/ProjA/1Bit_ALU/xorg2.vhd
+Z59 FU:/cpre381/Proj-A/cpre381_proja/ProjA/1Bit_ALU/xorg2.vhd
+l0
+R6
+V;hb`C0MKik;h36`3`SzM60
+!s100 [hI[mXFH4_j16U;>U1Lfn2
+R7
+32
+Z60 !s110 1601511171
+!i10b 1
+Z61 !s108 1601511171.000000
+Z62 !s90 -reportprogress|300|-work|work|U:/cpre381/Proj-A/cpre381_proja/ProjA/1Bit_ALU/xorg2.vhd|
+Z63 !s107 U:/cpre381/Proj-A/cpre381_proja/ProjA/1Bit_ALU/xorg2.vhd|
+!i113 0
+R12
+R13
+Adataflow
+R2
+R3
+DEx4 work 5 xorg2 0 22 ;hb`C0MKik;h36`3`SzM60
+!i122 7
+l32
+R14
+VbmLohbkYjJQ`?EHUY>LoL1
+!s100 Z6[FAPS4fBLB`F?OO<AY72
+R7
+32
+R60
+!i10b 1
+R61
+R62
+R63
+!i113 0
+R12
+R13

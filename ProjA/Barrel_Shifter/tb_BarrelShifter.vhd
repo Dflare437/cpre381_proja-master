@@ -1,0 +1,98 @@
+library IEEE;
+use IEEE.std_logic_1164.all;
+
+entity tb_BarrelShifter is
+
+end tb_BarrelShifter;
+
+architecture structure of tb_BarrelShifter is
+
+	component Barrel_Shifter is
+		generic(N : integer := 32);
+		port(i_A  : in std_logic_vector(N-1 downto 0);
+		Logical_Arithmatic : in std_logic;
+		Left_Right : in std_logic;
+		i_shamt : in std_logic_vector(4 downto 0);
+		o_F : out std_logic_vector(N-1 downto 0));
+
+	end component;
+	
+	signal i_A, o_F : std_logic_vector(31 downto 0);
+	signal Logical_Arithmatic, Left_Right : std_logic;
+	signal i_shamt : std_logic_vector (4 downto 0);
+	begin
+	
+	bs : Barrel_Shifter
+	port map(i_A => i_A,
+			Logical_Arithmatic => Logical_Arithmatic,
+			Left_Right => Left_Right,
+			i_shamt => i_shamt,
+			o_F => o_F
+			);
+			
+	
+	P_TB: process
+	begin
+	
+	wait for 50 ns;
+	-- Expect 1
+	Left_Right <= '0';
+	i_A <= x"00000001";
+	Logical_Arithmatic <= '0';
+	i_shamt <= "00000";
+	wait for 20 ns;
+	--Expect 2
+	i_shamt <= "00001";
+	
+	wait for 20 ns;
+	--Expect 0
+	Left_Right <= '1';
+	i_shamt <= "00001";
+	
+	wait for 20 ns;
+	-- Expect 1 at the left-end
+	i_A <= "10000000000000000000000000000001";
+	i_shamt <= "00011";
+	wait for 20 ns;
+	-- Expect 8 on the right-end
+	Left_Right <= '0';
+	i_shamt <= "00011";
+	wait for 20 ns;
+	--Expect C at the end
+	Logical_Arithmatic <= '1';
+	Left_Right <= '1';
+	i_shamt <= "00001";
+	wait for 20 ns;
+	--Expect 2
+	Left_Right <= '0';
+	i_shamt <= "00001";
+	wait for 20 ns;
+	--Expect all F's
+	Left_Right <= '1';
+	i_shamt <= "11111";
+	wait for 20 ns;
+	
+	Logical_Arithmatic <= '0';
+	
+	Left_Right <= '0';
+	i_A <= x"00000001";
+	i_shamt <= "11111";
+	wait for 20 ns;
+	
+	Logical_Arithmatic <= '1';
+	i_A <= x"10000001";
+	wait for 20 ns;
+	
+	Logical_Arithmatic <= '0';
+	
+	Left_Right <= '1';
+	i_shamt <= "11110";
+	i_A <= x"10000000";
+	wait for 20 ns;
+	
+	Logical_Arithmatic <= '1';
+	
+	
+	end process;
+	
+end structure;

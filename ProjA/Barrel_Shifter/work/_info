@@ -1,0 +1,327 @@
+m255
+K4
+z2
+!s11e vcom 2020.2 2020.04, Apr 19 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dU:/cpre381/Proj-A/cpre381_proja/ProjA/Barrel_Shifter
+T_opt
+!s110 1602044502
+V56RnJ_Y6WHzXdI>V_D_jU3
+Z1 04 16 9 work tb_barrelshifter structure 1
+=1-0050569b4606-5f7d4255-159-1d40
+o-quiet -auto_acc_if_foreign -work work +acc
+Z2 tCvgOpt 0
+n@_opt
+Z3 OL;O;2020.2;71
+T_opt1
+!s110 1601496591
+V>Gho=j;VDb:OIGUlHTK8j2
+04 14 9 work barrel_shifter structure 1
+=1-0050569baeb2-5f74e60e-307-14e8
+Z4 o-quiet -auto_acc_if_foreign -work work
+R2
+n@_opt1
+R3
+R0
+T_opt2
+!s110 1601560060
+V06[=T=5jaE2=5NH]Ygj_h1
+R1
+=1-0050569beadd-5f75ddf9-7f-23c0
+R4
+R2
+n@_opt2
+R3
+R0
+Eandg2
+Z5 w1601265835
+Z6 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z7 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
+!i122 53
+Z8 dU:/CPRE309/Proj-1/cpre381_proja/ProjA/Barrel_Shifter
+Z9 8U:/CPRE309/Proj-1/cpre381_proja/ProjA/Barrel_Shifter/andg2.vhd
+Z10 FU:/CPRE309/Proj-1/cpre381_proja/ProjA/Barrel_Shifter/andg2.vhd
+l0
+Z11 L23 1
+VQ@<<<@nlJ=eiIl4BJDFzW2
+!s100 YT?bGzEmcFo:DlnoC^B4_0
+Z12 OL;C;2020.2;71
+32
+Z13 !s110 1601559238
+!i10b 1
+Z14 !s108 1601559238.000000
+Z15 !s90 -reportprogress|300|-work|work|U:/CPRE309/Proj-1/cpre381_proja/ProjA/Barrel_Shifter/andg2.vhd|
+Z16 !s107 U:/CPRE309/Proj-1/cpre381_proja/ProjA/Barrel_Shifter/andg2.vhd|
+!i113 0
+Z17 o-work work
+Z18 tExplicit 1 CvgOpt 0
+Adataflow
+R6
+R7
+DEx4 work 5 andg2 0 22 Q@<<<@nlJ=eiIl4BJDFzW2
+!i122 53
+l32
+Z19 L31 6
+VJVOzCk?IH:iJ5bCRU`CK13
+!s100 I`@Z@UBObS]<7m8bPgKUS1
+R12
+32
+R13
+!i10b 1
+R14
+R15
+R16
+!i113 0
+R17
+R18
+Ebarrel_shifter
+R5
+R6
+R7
+!i122 54
+R8
+Z20 8U:/CPRE309/Proj-1/cpre381_proja/ProjA/Barrel_Shifter/Barrel_Shifter.vhd
+Z21 FU:/CPRE309/Proj-1/cpre381_proja/ProjA/Barrel_Shifter/Barrel_Shifter.vhd
+l0
+Z22 L12 1
+V?zI_096;0S]NgRT[UCD_k3
+!s100 bgI;LS_O2]3Ad<DW<7[?:2
+R12
+32
+R13
+!i10b 1
+R14
+Z23 !s90 -reportprogress|300|-work|work|U:/CPRE309/Proj-1/cpre381_proja/ProjA/Barrel_Shifter/Barrel_Shifter.vhd|
+Z24 !s107 U:/CPRE309/Proj-1/cpre381_proja/ProjA/Barrel_Shifter/Barrel_Shifter.vhd|
+!i113 0
+R17
+R18
+Astructure
+R6
+R7
+DEx4 work 14 barrel_shifter 0 22 ?zI_096;0S]NgRT[UCD_k3
+!i122 54
+l45
+L22 156
+V8h`VV=[`hCHT>WhJ67X6l0
+!s100 eU[?=EPlzMiD0AFE>X3nl2
+R12
+32
+R13
+!i10b 1
+R14
+R23
+R24
+!i113 0
+R17
+R18
+Einvg
+R5
+R6
+R7
+!i122 55
+R8
+Z25 8U:/CPRE309/Proj-1/cpre381_proja/ProjA/Barrel_Shifter/invg.vhd
+Z26 FU:/CPRE309/Proj-1/cpre381_proja/ProjA/Barrel_Shifter/invg.vhd
+l0
+R11
+VQ?6hb9ePk@>kZZ9k]hNSO3
+!s100 _XK?_^5z0Rm1<k12?;5R?2
+R12
+32
+Z27 !s110 1601559239
+!i10b 1
+R14
+Z28 !s90 -reportprogress|300|-work|work|U:/CPRE309/Proj-1/cpre381_proja/ProjA/Barrel_Shifter/invg.vhd|
+Z29 !s107 U:/CPRE309/Proj-1/cpre381_proja/ProjA/Barrel_Shifter/invg.vhd|
+!i113 0
+R17
+R18
+Adataflow
+R6
+R7
+DEx4 work 4 invg 0 22 Q?6hb9ePk@>kZZ9k]hNSO3
+!i122 55
+l31
+L30 6
+Vch>li:oKYZkCO5]GamViK1
+!s100 bk7I76o8e1LURdoZEQb8H0
+R12
+32
+R27
+!i10b 1
+R14
+R28
+R29
+!i113 0
+R17
+R18
+En_bit_2_1_mux
+R5
+R6
+R7
+!i122 56
+R8
+Z30 8U:/CPRE309/Proj-1/cpre381_proja/ProjA/Barrel_Shifter/N_bit_2_1_MUX.vhd
+Z31 FU:/CPRE309/Proj-1/cpre381_proja/ProjA/Barrel_Shifter/N_bit_2_1_MUX.vhd
+l0
+R22
+Vel>F1ez<D23MTXOzfV<m83
+!s100 DY?aD2>2Lnblb7EifbbA?3
+R12
+32
+R27
+!i10b 1
+Z32 !s108 1601559239.000000
+Z33 !s90 -reportprogress|300|-work|work|U:/CPRE309/Proj-1/cpre381_proja/ProjA/Barrel_Shifter/N_bit_2_1_MUX.vhd|
+Z34 !s107 U:/CPRE309/Proj-1/cpre381_proja/ProjA/Barrel_Shifter/N_bit_2_1_MUX.vhd|
+!i113 0
+R17
+R18
+Astructure
+R6
+R7
+DEx4 work 13 n_bit_2_1_mux 0 22 el>F1ez<D23MTXOzfV<m83
+!i122 56
+l31
+L21 21
+VlH2mkia0Xf?jkiDZlak313
+!s100 mkNgY`KC@HhZFbKYP3AaX2
+R12
+32
+R27
+!i10b 1
+R32
+R33
+R34
+!i113 0
+R17
+R18
+Eorg2
+R5
+R6
+R7
+!i122 57
+R8
+Z35 8U:/CPRE309/Proj-1/cpre381_proja/ProjA/Barrel_Shifter/org2.vhd
+Z36 FU:/CPRE309/Proj-1/cpre381_proja/ProjA/Barrel_Shifter/org2.vhd
+l0
+R11
+V[C`FCj=kL0CTBYLlbjJzD3
+!s100 bGQ1F9eW^Q17OoL9h4g7z2
+R12
+32
+R27
+!i10b 1
+R32
+Z37 !s90 -reportprogress|300|-work|work|U:/CPRE309/Proj-1/cpre381_proja/ProjA/Barrel_Shifter/org2.vhd|
+Z38 !s107 U:/CPRE309/Proj-1/cpre381_proja/ProjA/Barrel_Shifter/org2.vhd|
+!i113 0
+R17
+R18
+Adataflow
+R6
+R7
+DEx4 work 4 org2 0 22 [C`FCj=kL0CTBYLlbjJzD3
+!i122 57
+l32
+R19
+VNHGn>Kh:]BEh4o]ImiG<d3
+!s100 h5_AzR3TdRA0a_K=dQ>mI2
+R12
+32
+R27
+!i10b 1
+R32
+R37
+R38
+!i113 0
+R17
+R18
+Etb_barrelshifter
+Z39 w1601559999
+R6
+R7
+!i122 59
+R8
+Z40 8U:/CPRE309/Proj-1/cpre381_proja/ProjA/Barrel_Shifter/tb_BarrelShifter.vhd
+Z41 FU:/CPRE309/Proj-1/cpre381_proja/ProjA/Barrel_Shifter/tb_BarrelShifter.vhd
+l0
+L4 1
+V@i_o0dc@S]Ec]F0W?^ha33
+!s100 gcYzYdYR_=lj2V0VCKSJZ1
+R12
+32
+Z42 !s110 1601560047
+!i10b 1
+Z43 !s108 1601560046.000000
+Z44 !s90 -reportprogress|300|-work|work|U:/CPRE309/Proj-1/cpre381_proja/ProjA/Barrel_Shifter/tb_BarrelShifter.vhd|
+Z45 !s107 U:/CPRE309/Proj-1/cpre381_proja/ProjA/Barrel_Shifter/tb_BarrelShifter.vhd|
+!i113 0
+R17
+R18
+Astructure
+R6
+R7
+DEx4 work 16 tb_barrelshifter 0 22 @i_o0dc@S]Ec]F0W?^ha33
+!i122 59
+l23
+L8 91
+VE[CGn2=Y6`R37hm98Ic@00
+!s100 4<c7X[RB0?lI1EI`[e?:73
+R12
+32
+R42
+!i10b 1
+R43
+R44
+R45
+!i113 0
+R17
+R18
+Etwo_one_mux
+R5
+R6
+R7
+!i122 52
+R8
+Z46 8U:/CPRE309/Proj-1/cpre381_proja/ProjA/Barrel_Shifter/2_1_MUX.vhd
+Z47 FU:/CPRE309/Proj-1/cpre381_proja/ProjA/Barrel_Shifter/2_1_MUX.vhd
+l0
+R22
+VjMgb<Bi?kPFEJ8Y>bHR]n0
+!s100 b0RcRlGJITNIKZ4i`L7jU0
+R12
+32
+R13
+!i10b 1
+Z48 !s108 1601559237.000000
+Z49 !s90 -reportprogress|300|-work|work|U:/CPRE309/Proj-1/cpre381_proja/ProjA/Barrel_Shifter/2_1_MUX.vhd|
+Z50 !s107 U:/CPRE309/Proj-1/cpre381_proja/ProjA/Barrel_Shifter/2_1_MUX.vhd|
+!i113 0
+R17
+R18
+Astructure
+R6
+R7
+DEx4 work 11 two_one_mux 0 22 jMgb<Bi?kPFEJ8Y>bHR]n0
+!i122 52
+l41
+L20 52
+V=2m?HdVideYOO6iZiWzS?3
+!s100 i_97ACg26Bc]?7Foj<E?01
+R12
+32
+R13
+!i10b 1
+R48
+R49
+R50
+!i113 0
+R17
+R18

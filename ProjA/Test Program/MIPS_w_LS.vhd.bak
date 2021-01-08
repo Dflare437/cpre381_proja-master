@@ -1,0 +1,154 @@
+-------------------------------------------------------------------------
+-- Curt Lengemann
+-------------------------------------------------------------------------
+
+
+-- MIPS_w_LS.vhd
+-------------------------------------------------------------------------
+
+library IEEE;
+use IEEE.std_logic_1164.all;
+
+entity MIPS_w_LS is
+  generic(N : integer := 32);
+  port(CLK  : in std_logic;
+       Reset, RegWrite  : in std_logic;
+       ALUSrc, Logical_Arithmatic  : in std_logic;
+       s_OPMUX : in std_logic_vector(3 downto 0);
+       Left_Right, alu_shifter : in std_logic;
+       i_shamt : in std_logic_vector(4 downto 0);
+       Zero_Sign, dmem_we : in std_logic;
+       MemToReg, RegDst : in std_logic;
+       immediate : in std_logic_vector(15 downto 0);
+       rd,rs,rt : in std_logic_vector(4 downto 0);
+       o_ALUOverflow: out std_logic;
+       o_ALUCout: out std_logic;
+       o_ALUZero : out std_logic);
+end MIPS_w_LS;
+
+architecture structure of MIPS_w_LS is
+
+component N_bit_2_1_MUX
+  generic(N: integer);
+  port(i_A  : in std_logic_vector(N-1 downto 0);
+       i_B  : in std_logic_vector(N-1 downto 0);
+       i_Sel : in std_logic;
+       o_F  : out std_logic_vector(N-1 downto 0));
+
+end component;
+
+component Register_File
+  port(Reset  : in std_logic;
+       RegWrite  : in std_logic;
+       CLK  : in std_logic;
+       Data_in  : in  std_logic_vector (N-1 downto 0);
+       Write_Register : in std_logic_vector(4 downto 0);
+       Read_Register_1 : in std_logic_vector(4 downto 0);
+       Read_Register_2 : in std_logic_vector(4 downto 0);
+       Read_Data_1 : out std_logic_vector(N-1 downto 0);
+       Read_Data_2 : out std_logic_vector(N-1 downto 0));
+end component;
+
+component ALU_W_Barrel
+  port(i_A  : in std_logic_vector(N-1 downto 0);
+       i_B  : in std_logic_vector(N-1 downto 0);
+       s_OPMUX : in std_logic_vector(2 downto 0);
+       Logical_Arithmatic : in std_logic;
+       Left_Right, alu_shifter : in std_logic;
+       i_shamt : in std_logic_vector(4 downto 0);
+       o_F : out std_logic_vector(N-1 downto 0);
+       o_ALUOverflow: out std_logic;
+       o_ALUCout: out std_logic;
+       o_ALUZero : out std_logic);
+end component;
+
+component extender_16_32
+
+  port(i_Zero_Sign : std_logic;
+       i_input : in std_logic_vector(15 downto 0);
+       o_F : out std_logic_vector(31 downto 0));
+
+end component;
+
+component mem
+	generic 
+	(
+		DATA_WIDTH : natural := 32;
+		ADDR_WIDTH : natural := 10
+	);
+
+	port 
+	(
+		clk		: in std_logic;
+		addr	        : in std_logic_vector((ADDR_WIDTH-1) downto 0);
+		data	        : in std_logic_vector((DATA_WIDTH-1) downto 0);
+		we		: in std_logic := '1';
+		q		: out std_logic_vector((DATA_WIDTH -1) downto 0)
+	);
+end component;
+
+signal s_ALU_OUT, s_Read_Data_1, s_Read_Data_2 : std_logic_vector(N-1 downto 0);
+signal s_MemToRegMux_OUT, s_dmem_OUT, s_extended_imm : std_logic_vector(N-1 downto 0);
+signal s_immAndData2Mux_OUT : std_logic_vector(N-1 downto 0);
+signal s_RegDstMux_OUT : std_logic_vector(4 downto 0);
+
+begin
+
+Register_File1: Register_File
+port MAP(Reset => Reset,
+	 RegWrite => RegWrite,
+	 CLK => CLK,
+	 Data_in => s_MemToRegMux_OUT,
+	 Write_Register => s_RegDstMux_OUT,
+	 Read_Register_1 => rs,
+	 Read_Register_2 => rt,
+	 Read_Data_1 => s_Read_Data_1,
+	 Read_Data_2 => s_Read_Data_2);
+
+N_bit_2_1_MUX1: N_bit_2_1_MUX
+generic MAP(N => 32)
+port MAP(i_A => s_ALU_OUT,
+	 i_B => s_dmem_OUT,
+	 i_Sel => MemToReg,
+	 o_F => s_MemToRegMux_OUT);
+
+N_bit_2_1_MUX2: N_bit_2_1_MUX
+generic MAP(N => 5)
+port MAP(i_A => rd,
+	 i_B => rt,
+	 i_Sel => RegDst,
+	 o_F => s_RegDstMux_OUT);
+
+extender_16_32_1: extender_16_32
+port MAP(i_Zero_Sign => Zero_Sign,
+	 i_input => immediate,
+	 o_F => s_extended_imm);
+
+N_bit_2_1_MUX3: N_bit_2_1_MUX
+generic MAP(N => 32)
+port MAP(i_A => s_Read_Data_2,
+	 i_B => s_extended_imm,
+	 i_Sel => ALUSrc,
+	 o_F => s_immAndData2Mux_OUT);
+
+ALU1: ALU_W_Barrel
+port MAP(i_A => s_Read_Data_1,
+	 i_B => s_immAndData2Mux_OUT,
+	 s_OPMUX => s_OPMUX,
+	 Logical_Arithmatic => Logical_Arithmatic,
+	 Left_Right => Left_Right,
+	 alu_shifter => alu_shifter,
+	 i_shamt => i_shamt,
+	 o_F => s_ALU_OUT,
+	 o_ALUOverflow => o_ALUOverflow,
+	 o_ALUCout => o_ALUCout,
+	 o_ALUZero => o_ALUZero);
+
+dmem: mem
+port MAP(clk => CLK,
+	 addr => s_ALU_OUT(11 downto 2),
+	 data => s_Read_Data_2,
+	 we => dmem_we,
+	 q => s_dmem_out);
+
+end structure;
